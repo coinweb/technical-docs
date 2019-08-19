@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<div class="home">
+  <h1 class="page-heading">Downloads</h1>
+
+  {% assign download_files = site.static_files | where: "documents", true %}
+  {% if download_files.size > 0 %}
+    <ul class="post-list">
+      {% for document in download_files %}
+      <li>
+        {%- assign date_format = "%b %-d, %Y" -%}
+        <span class="post-meta">{{ document.modified_time | date: date_format }}</span>
+        <h3>
+          <a class="post-link" href="{{ document.path | relative_url }}">
+            {{ document.name | escape }}
+          </a>
+        </h3>
+      </li>
+      {% endfor %}
+    </ul>
+
+  {% endif %}
+
+</div>
