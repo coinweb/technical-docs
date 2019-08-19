@@ -17,9 +17,7 @@
         </label>
 
         <div class="trigger">
-            <a class="page-link" href="{{ "/" | relative_url }}">Docs</a>
             <a class="page-link" href="{{ "/tech_faq.html" | relative_url }}">Tech FAQ</a>
-            <a class="page-link" href="{{ "/downloads.html" | relative_url }}">Downloads</a>
           {%- for path in page_paths -%}
             {%- assign my_page = site.pages | where: "path", path | first -%}
             {%- if my_page.title -%}
