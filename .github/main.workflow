@@ -5,10 +5,15 @@ workflow "Jekyll build now" {
   on = "push"
 }
 
+action "Filters for GitHub Actions" {
+  uses = "actions/bin/filter@b2bea0749eed6beb495a8fa194c071847af60ea1"
+  args = "branch master"
+}
+
 action "Jekyll Action" {
   uses = "helaili/jekyll-action@master"
   env = {
-    SRC = "_site"
+    SRC = "./"
   }
   secrets = [
     "JEKYLL_PAT",
