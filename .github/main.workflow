@@ -10,7 +10,6 @@ action "Jekyll Action" {
   needs = "Filters for GitHub Actions"
   secrets = [
     "GITHUB_TOKEN",
-    "JEKYLL_PAT",
   ]
 }
 
