@@ -1,12 +1,11 @@
-# Coinweb Technical Documentation
+---
+layout: page
+---
 
-## Blog Post Entries 
+Open sourced Coinweb project docs and specs; Notice this is a work in progress, we'll keep adding here technical docs
+as they get specified.
 
-Blog Posts entries can be found under [_posts_](/_posts) folder.
+* Repo where [this](https://github.com/coinweb/technical-docs) is hosted.
 
-## Documents and Files
-
-Documents and Files to be downloaded can be found under [assets/documents](/assets/documents) folder.
-
-
+* Coinweb [webpage](coinweb.io)
 
