@@ -1,4 +1,4 @@
-name: Ruby
+name: Build and Deploy Blog
 
 on:
   push:
@@ -16,8 +16,13 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6.x
-    - name: Build and test with Rake
+    - name: Build Site
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
         bundle exec jekyll build
+    - name: Deploy Site
+      uses: maxheld83/ghpages@v0.2.1
+      with:
+        BUILD_DIR: _site/
+        secrets: GH_PATH 
