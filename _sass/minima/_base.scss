@@ -183,6 +183,11 @@ pre {
   padding-left: $spacing-unit;
   @extend %clearfix;
 
+  &-header{
+    max-width: -webkit-calc(#{$content-width} + 155px - (#{$spacing-unit} * 2));
+    max-width:         calc(#{$content-width} + 155px - (#{$spacing-unit} * 2));
+  }
+
   @include media-query($on-laptop) {
     max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
     max-width:         calc(#{$content-width} - (#{$spacing-unit}));

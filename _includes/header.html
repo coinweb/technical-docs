@@ -1,9 +1,9 @@
 <header class="site-header" role="banner">
 
-  <div class="wrapper">
+  <div class="wrapper wrapper-header">
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    <a class="site-title site-logo" rel="author" href="{{ "/" | relative_url }}"><img class="brand-image" src="assets/img/coinweb-logo.png"/></a>
 
     {%- if page_paths -%}
       <nav class="site-nav">
