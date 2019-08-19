@@ -1,8 +1,14 @@
 
+
 - description: "Coinweb White Paper."
   date: 2019-08-19 11:11:54 +0200
   format: pdf
   name: white_paper.pdf
+
+- description: "Reorg analysis."
+  date: 2019-08-20 13:07:51 +0300
+  format: pdf
+  name: reorgs.pdf
 
 - description: "Investor Deck."
   date: 2019-08-19 11:11:54 +0200
