@@ -1,13 +1,11 @@
 
 - description: "Coinweb White Paper."
   date: 2019-08-19 11:11:54 +0200
-  asset:
-     format: pdf
-     url: coinweb_white_paper.pdf
+  format: pdf
+  name: white_paper.pdf
 
 - description: "Investor Deck."
   date: 2019-08-19 11:11:54 +0200
-  assets:
-     format: pdf
-     url: investor_deck.pdf
+  format: pdf
+  name: investor_deck.pdf
 

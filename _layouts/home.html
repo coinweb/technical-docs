@@ -35,7 +35,7 @@ layout: default
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       <span class="post-meta">{{ file.date | date: date_format }}</span>
         <h3>
-          <a class="post-link" href="{{ "assets" | relative_url }}">
+          <a class="post-link" href="{{ "assets/documents/" | append: file.name | relative_url }}">
             {{ file.description | escape }}
           </a>
         </h3>
