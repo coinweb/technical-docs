@@ -7,9 +7,8 @@ workflow "Jekyll build now" {
 
 action "Filters for GitHub Actions" {
   uses = "actions/bin/filter@b2bea0749eed6beb495a8fa194c071847af60ea1"
-  args = "branch master"
+  args = "branch develop"
 }
-
 
 action "Jekyll Action" {
   uses = "helaili/jekyll-action@master"
@@ -22,4 +21,3 @@ action "Jekyll Action" {
     "GITHUB_TOKEN",
   ]
 }
-
