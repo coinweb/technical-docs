@@ -21,24 +21,31 @@ This projects builds and runs with Ruby 2.6.3, but it is not mandatory for you t
 
 - Build solution
 
-`docker run --rm -ti -p 4000:4000 -v $PWD:/usr/src/app coinweb/technical-docs:latest bundle exec jekyll build`
+```.bash
+docker run --rm -ti -p 4000:4000 -v $PWD:/usr/src/app coinweb/technical-docs:latest bundle exec jekyll build
+```
 
 - Run solution
- 
-`docker run --rm -ti -p 4000:4000 -v $PWD:/usr/src/app coinweb/technical-docs:latest`
 
+```.bash
+docker run --rm -ti -p 4000:4000 -v $PWD:/usr/src/app coinweb/technical-docs:latest
+```
 
 ### Ruby 
 
 - Building 
 
-`bundle install`
-`bundle exec jekyll build`
+```.bash
+bundle install
+bundle exec jekyll build
+```
 
 - Running
 
-`bundle install`
-`bundle exec jekyll serve`
+```.bash
+bundle install
+bundle exec jekyll serve
+```
 
 ### Browsing 
 
