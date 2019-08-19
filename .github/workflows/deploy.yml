@@ -1,0 +1,45 @@
+name: Build and Deploy Blog
+
+on:
+  push:
+    branches:
+    - develop
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: Build Site
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bundle exec jekyll build
+        cd _site
+        if [[ -z "${JEKYLL_PAT}" ]]; then
+          TOKEN=${GITHUB_TOKEN}
+        else 
+          TOKEN=${JEKYLL_PAT}
+        fi
+        remote_branch="gh-pages"
+        if [ "${GITHUB_REF}" == "refs/heads/${remote_branch}" ]; then
+          echo "Cannot publish on branch ${remote_branch}"
+          exit 1
+        else
+          echo "Pushing on branch ${remote_branch}"
+        fi
+        remote_repo="https://${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" && \
+        git init && \
+        git config user.name "${GITHUB_ACTOR}" && \
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
+        git add . && \
+        git commit -m 'jekyll build from Action' && \
+        git push --force $remote_repo master:$remote_branch && \
+        rm -fr .git && \
+        cd ..
