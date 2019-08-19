@@ -56,6 +56,13 @@ faq:
       BFT like consensus mechanism based on validators, and in our case we use deterministic evaluation and RDoC (see info about our FFV consensus for further info).
 
 
+  - question: Over which blockchains can Coinweb work? Would they need some fork?
+
+    Providing they are mature enough, Coinweb can work over most current blockchains as they are, without any modification or fork require to them. We plan
+    to start working on top of the major chains, like BTC, ETH, BCH, LTC or DASH.
+
+
+
 ---
 
 <h1>FAQ</h1>
