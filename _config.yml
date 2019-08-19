@@ -14,14 +14,8 @@ plugins:
   - jekyll-feed
 destination: ./build
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
+
 exclude:
-  - deploy/
-  - Gemfile
-  - Gemfile.lock
-  - README.md
   - develop.md
 
 defaults:
