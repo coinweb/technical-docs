@@ -11,7 +11,10 @@ action "Filters for GitHub Actions" {
 }
 
 action "Jekyll Action" {
-  uses = "BryanSchuetz/jekyll-deploy-gh-pages@master"
   needs = "Filters for GitHub Actions"
-  secrets = ["GITHUB_TOKEN", "JEKYLL_PAT"]
+  uses = "shalzz/zola-deploy-action@master"
+  env = {
+    PAGES_BRANCH = "gh-pages"
+  }
+  secrets = ["TOKEN"]
 }
