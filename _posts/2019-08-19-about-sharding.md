@@ -5,6 +5,8 @@ date:   2019-08-19 11:11:54 +0200
 categories: sharding internal architecture blockchain distributed
 ---
 
+Hello world
+
 This document refers to external research in order to position Coinweb sharding in relation to existing work.
 
 ### In relation to the Ethereum Sharding FAQ and related Ethereum research
