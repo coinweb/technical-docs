@@ -133,3 +133,5 @@ You only need access to the main chain, not both the main chain and the sidechai
 Aggregated computation needed to drive the network is much lower as only one honest validator is needed.
 
 Data is written into the L1 layer.
+
+
