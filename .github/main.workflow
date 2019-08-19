@@ -12,6 +12,6 @@ action "Filters for GitHub Actions" {
 
 action "Jekyll Action" {
   uses = "BryanSchuetz/jekyll-deploy-gh-pages@master"
-  secrets = ["GITHUB_TOKEN"]
   uses = "helaili/jekyll-action@master"
+  secrets = ["GITHUB_TOKEN", "JEKYLL_PAT"]
 }
