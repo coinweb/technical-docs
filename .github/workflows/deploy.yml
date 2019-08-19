@@ -20,8 +20,8 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
-        bundle exec jekyll build
-        cd _site
+        bundle exec jekyll build -d build
+        cd build
         if [[ -z "${JEKYLL_PAT}" ]]; then
           TOKEN=${GITHUB_TOKEN}
         else 
