@@ -11,7 +11,10 @@ action "Jekyll Action" {
   env = {
     SRC = "_site"
   }
-  secrets = ["JEKYLL_PAT"]
+  secrets = [
+    "JEKYLL_PAT",
+    "GITHUB_TOKEN",
+  ]
 }
 
 action "Filters for GitHub Actions" {
