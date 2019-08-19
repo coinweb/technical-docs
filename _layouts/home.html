@@ -10,7 +10,7 @@ layout: default
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Technical Docs" }}</h2>
+    <h2 class="post-list-heading">{{ page.list_title | default: "Technical Docs:" }}</h2>
     <ul class="post-list">
       {%- for post in site.posts -%}
       <li>
@@ -28,7 +28,24 @@ layout: default
       {%- endfor -%}
     </ul>
 
+    <h2 class="post-list-heading"> Downloads: </h2>
+    <ul class="post-list">
+    {%- for file in site.data.downloads_files -%}
+      <li>
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      <span class="post-meta">{{ file.date | date: date_format }}</span>
+        <h3>
+          <a class="post-link" href="{{ "assets" | relative_url }}">
+            {{ file.description | escape }}
+          </a>
+        </h3>
+      </li>
+    {%- endfor -%}
+    </ul>
+
     <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
   {%- endif -%}
+
+
 
 </div>
