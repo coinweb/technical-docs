@@ -1,0 +1,69 @@
+\documentclass[120pt]{article}
+\newcommand{\numpy}{{\tt numpy}}    % tt font for numpy
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\begin{document}
+% ========== Edit your name here
+\title{Coinweb L2 Reorgs analysis}
+\date{\vspace{-5ex}}
+\maketitle
+\medskip
+% ========== Begin answering questions here
+\begin{enumerate}
+\item At any point in time, given a specific node, we model the height of the observed last block l1-reorganization as a random variable $L1$ over a geometric probability distribution:
+$$
+\begin{array}{lcl}
+P( L1 = h ) = Geo( h + 1) \\
+\\
+Geo(h) = ( 1 - p)p^{h-1}
+\end{array}
+$$
+where $P( L1 = 0)$ would indicate the block won't get l1-reorganized, $p$ the chances single block gets l1-reorganized, and $h$ the reorganization height.
+\item Then under this model, the probability that a l1-reorganization will have at least height $h$ is:
+$$
+\begin{array}{lcl}
+P( L1 >= h ) & = & \sum\limits_{ i = h}^{\infty} ( 1 - p)p^{i} \\
+             & = & ( 1 - p)p^{h}\sum\limits_{ i = 0}^{\infty} ( 1 - p)p^{i} \\
+             & = & ( 1 - p)p^{h}\frac{1}{1 -p} \\
+             & = & p^h
+\end{array}
+$$
+\item Now let's assume for the l2-network of blockchains that:
+\begin{itemize}
+  \item Each l2-blockchain is placed on a chess-like grid, each one connected to 8 adjacent blockchains (north, north-east,east, south-east, south,south-west, west and north-west).
+  
+  \item To accept a transaction from a neighbor l2-blockchain, it waits for $d$ confirmations.
+  
+  \item \textbf{There are an infinite number of l2-blockchains}. Notice the actual network will be finite, but this shouldn't be a problem as a worst case scenario.
+  
+\end{itemize}
+This way, for every l2-blockchain, there are $8n$ blockchains at a $n$ hop distance. 
+An l2-reorganization will be triggered over l2-blockchain $b$ iff:
+\begin{itemize}
+ \item its related l1-blockchain gets a $h$ or deeper reorg.
+ \item any l2-blockchain at a minimal $n$ hops distance gets a $h + dn$ reorg.
+\end{itemize}
+\item We model the random variable describing the height of the l2-reorganization on a l2-blockhain $b$ as $L2_b$. As the probability of any independent pair of events is equal or greater than the sum of each events individual probability  ( $P(A \ or \ B) \ge P(A) + P(B)$) we get:
+$$
+\begin{array}{lcl}
+P(L2_b >= h) & \le & P(L1_b >= h) + \sum\limits_{n = 0}^{\infty} \sum\limits_{ \{k | distance(k) = n \}} P(L2_k >= h + dn) \\
+ & = & P(L1_b >= h) + \sum\limits_i^{\infty} 8i P(L2_k >= h + i d) \\
+ & = & P(L1_b >= h) + \sum\limits_i^{\infty} 8i P(L1_k >= h + i d) \\
+ & = & p^h + \sum\limits_{ i = 0 }^{\infty} 8ip^{ h + id} =  p^h \big( 1 + 8\sum\limits_{ i = 0 }^{\infty} ip^{di} \big) =  p^h \big( 1 + 8\sum\limits_{ i = 0 }^{\infty} iw^{i} \big) \\
+ & = & p^h \big( 1 + \frac{8w}{(1 - w)^2} \big) \\
+ & = & p^h \big( 1 + \frac{8p^d}{(1 - p^d)^2} \big)
+\end{array}
+$$
+Where we have used the fact that $ p < 1$ and hence $ p^d < 1$.
+As we can see, fixing $p$ and $d$ we get:
+$$
+\begin{array}{lcl}
+P(L2_b >= h) \le k_{d,p} P(L1_b >= h)
+\end{array}
+$$
+Meaning that probability distribution of the expected reorganization is bounded by the original distribution times a constant. In addition said constant quickly approximate to 1 as $d$ increases.
+\item Here we showed how the l2-reorganization expectation can be kept close to the l1-reorganization on a grid like topology even when the number of connected blockchains is arbitrarily large. A similar result can be obtained for more interesting topologies like random graphs, where the result remains true as 	long as $ (k-1) p^d < 1$, where $k$ is degree of each vertex.
+% ========== Continue adding items as needed
+\end{enumerate}
+\end{document}
+\grid
+\grid

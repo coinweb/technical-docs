@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-19T16:01:17+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Coinweb’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">About Coinweb Sharding</title><link href="http://localhost:4000/sharding/internal/architecture/blockchain/distributed/2019/08/19/about-sharding.html" rel="alternate" type="text/html" title="About Coinweb Sharding" /><published>2019-08-19T11:11:54+02:00</published><updated>2019-08-19T11:11:54+02:00</updated><id>http://localhost:4000/sharding/internal/architecture/blockchain/distributed/2019/08/19/about-sharding</id><content type="html" xml:base="http://localhost:4000/sharding/internal/architecture/blockchain/distributed/2019/08/19/about-sharding.html">&lt;p&gt;This document refers to external research in order to position Coinweb sharding in relation to existing work.&lt;/p&gt;
+
+&lt;h3 id=&quot;in-relation-to-the-ethereum-sharding-faq-and-related-ethereum-research&quot;&gt;In relation to the Ethereum Sharding FAQ and related Ethereum research&lt;/h3&gt;
+
+&lt;p&gt;These concepts are from the (now old) &lt;a href=&quot;https://ethresear.ch/t/sharding-phase-1-spec-retired/1407&quot;&gt;phase 1 design&lt;/a&gt; for Ethereum sharding:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The Ethereum project has investigated proposer, collator, notary, and executor concepts where:&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;&lt;strong&gt;Proposers&lt;/strong&gt;: A proposer is responsible for preparing the data that goes in a given shard. It prioritises so-called blobs (think, transactions) and assembles them into collations (think, blocks). Collations are proposed to collators for inclusion in the collation tree via an open auction amongst proposers. To prioritise blobs and maximise revenue proposers are expected to run executing nodes.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;&lt;strong&gt;Collators&lt;/strong&gt;: A collator is responsible for extending the head of the canonical chain of shards. It adjudicates on the availability of collation bodies and selects the highest-paying available collations from proposers. Collators are not required to run executing nodes. This allows for fast shuffling of the collator pool across shards, a key part of phase 1 sharding’s security.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;&lt;strong&gt;Executors&lt;/strong&gt;: An executor is responsible for running the enshrined execution engine on the canonical chain of a given shard, and posting crypto economic claims on state roots. This allows light-clients to guess the state root of a shard without running executing nodes. Executors are planned for phase 3 after an EVM state transition function is specified in phase 2.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;They further define proposer + collator as.. prolators!&lt;/p&gt;
+
+&lt;p&gt;If we squint a bit, we can see L1 miners as collators for L2 transactions, while dsBrokers are proposers.&lt;/p&gt;
+
+&lt;p&gt;If we look at Coinweb sharding in this view, we can map some questions regarding this type of sharding design to Coinweb and see how it falls out.&lt;/p&gt;
+
+&lt;h4 id=&quot;collators-have-no-knowledge-of-state-in-coinweb-and-its-not-needed&quot;&gt;Collators have no knowledge of state in Coinweb (and it's not needed)&lt;/h4&gt;
+
+&lt;p&gt;In &quot;&lt;a href=&quot;https://ethresear.ch/t/separating-proposing-and-confirmation-of-collations/1000&quot;&gt;&lt;strong&gt;Separating proposing and confirmation ofcollations&lt;/strong&gt;&lt;/a&gt;&quot;, Buterin argues that &quot;&lt;em&gt;the nodes participating in the transaction ordering process still need to have access to the state, and still need to perform state executions, because they need to know whether or not the transactions they accept will pay for gas.&lt;/em&gt;&quot;&lt;/p&gt;
+
+&lt;p&gt;This does not hold for Coinweb, as the L1 &quot;gas&quot; (the miner fee for example) is unrelated to the L2 fee. The collator gets paid (at the L1 level) without having to care about whether the transaction makes sense or not. L1 gets paid for consensus and availability (and storage). The collation process is completely independent from state execution.&lt;/p&gt;
+
+&lt;p&gt;Now this creates complexity - you now need to pay both L1 &quot;gas&quot; as well as L2 fee. This is where dsBrokers step in as an intermediary that will let you buy L1 &quot;gas&quot; using L2 tokens.&lt;/p&gt;
+
+&lt;p&gt;This is repeated in the &lt;a href=&quot;https://github.com/ethereum/wiki/wiki/Sharding-FAQ#can-we-split-data-and-execution-so-that-we-get-the-security-from-rapid-shuffling-data-validation-without-the-overhead-of-shuffling-the-nodes-that-perform-state-execution&quot;&gt;Sharding FAQ&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;congelated-shard-gas-is-solved-by-market-mechanisms-and-dsbroker&quot;&gt;Congelated shard gas is solved by market mechanisms and dsBroker&lt;/h4&gt;
+
+&lt;p&gt;The Ethereum sharding system introduces &quot;&lt;a href=&quot;https://github.com/ethereum/wiki/wiki/Sharding-FAQ#wait-but-what-if-an-attacker-sends-a-cross-shard-call-from-every-shard-into-shard-x-at-the-same-time-wouldnt-it-be-mathematically-impossible-to-include-all-of-these-calls-in-time&quot;&gt;congealed shard
+gas&lt;/a&gt;&quot; as a mechanism to ensure stable gas prices across shards.&lt;/p&gt;
+
+&lt;p&gt;In Coinweb, this is problem is solved by the dsBroker which using normal market mechanisms will sell cross-chain transaction &quot;collation services&quot; at fixed L2 prices. Of course the dsBroker will sell this at a profit similar to an insurance company or financial broker.&lt;/p&gt;
+
+&lt;h4 id=&quot;dangerous-cascading-reorganizations-have-been-studied&quot;&gt;Dangerous cascading reorganizations have been studied&lt;/h4&gt;
+
+&lt;p&gt;In &quot;&lt;a href=&quot;https://ethresear.ch/t/delayed-state-execution-finality-and-cross-chain-operations/987&quot;&gt;Delayed state execution, finality and cross-chain
+operations&lt;/a&gt;&quot;, Buterin argues that:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;We could simply have the reorg on shard A trigger a reorg on shard B, but that would be dangerous as it would be a DoS vulnerability: a small number of attackers reorging shard A could conceivably reorg every shard, if there is much cross-shard communication going on. The “dependency cone” of A will likely grow quickly. To prevent this, we can only go for the dumb solution: wait for the receipt on shard A to finalize, so that reorgs are simply not possible.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;But separating state execution gives us another way out: if shard A does a reorg, then we don’t reorg any transactions on shard B, but rather we simply let the executors recalculate the state roots. Any operations on shard B that actually do depend on activity on shard A would have their consequences reorg’ed, but any operation on shard B that is not part of the dependency cone of the receipt would be left alone. Furthermore, it should be possible to calculate ahead of time that some operation on shard B is not part of the dependency cone of something in shard A simply by looking at the access lists of transactions (the access lists would be extended so that transactions can also access historical receipts on other shards), and so users would have private knowledge that their operation on shard B is safe and sound without waiting for confirmation from the global state root. With this kind of approach, we could allow cross-shard transactions to happen very quickly, possibly even allowing transactions to reference receipts from the most recent collation in some other shard.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The above is true, but to clarify how we describe this situation, we separate L1 and L2 reorganizations in Coinweb. In Coinweb, L1/L2 chains have neighbor chains, and cross-chain messages can only happen between neighbors. As L1 chains have no knowledge of L2 reorganizations and thus &quot;collation&quot; is not affected by this, the &quot;dangerous DoS attack&quot; described by Buterin will not happen at the L1 level (as described above).&lt;/p&gt;
+
+&lt;p&gt;However, how about the L2 level? As noted by Buterin above, re-calculating state can be done quickly in this case, but Coinweb also reduces the attack surface in this case by using neighbor chains, and thus while an attack on an L1 chain can happen, the attacker cannot send cross-chain messages to all other chains.&lt;/p&gt;
+
+&lt;p&gt;This issue and how to construct the communication graph between shards has also been studied in the &lt;a href=&quot;https://kadena.io/docs/chainweb-v15.pdf&quot;&gt;Chainweb
+paper&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Re-calculating state is also much faster in Coinweb as calculating the state for a block is inherently parallel. It's fully task-parallel as each transaction is isolated, and data-parallel within a transaction.&lt;/p&gt;
+
+&lt;h4 id=&quot;coinweb-does-heterogeneous-sharding-but-more-and-better&quot;&gt;Coinweb does heterogeneous sharding, but more, and better&lt;/h4&gt;
+
+&lt;p&gt;The Ethereum Sharding FAQ is &lt;a href=&quot;https://github.com/ethereum/wiki/wiki/Sharding-FAQ#what-about-heterogeneous-sharding&quot;&gt;positive to hetregeneous
+sharding&lt;/a&gt; (&lt;a href=&quot;https://twitter.com/VladZamfir/status/932320997021171712&quot;&gt;here&lt;/a&gt;, &lt;a href=&quot;https://ethresear.ch/t/heterogeneous-sharding/1979&quot;&gt;here&lt;/a&gt;), where different shards will have different configurations of Casper CBC. Coinweb is a superset of this as it runs across any consensus protocol used by the L1 layer. We agree that heterogeneous sharding is very useful, such as having cheap centralized high-throughput computation as well as decentralized low-throughput computations in the same system.&lt;/p&gt;
+
+&lt;p&gt;However, Coinweb transactions can be secured by the full investment in mining equipment and consensus approaches by the whole market, not just a subset of the market. That is unobtainable for any chain-specific proposal. This includes any merge-mining based proposal as they rely on miner adoption.&lt;/p&gt;
+
+&lt;h4 id=&quot;coinweb-shards-state-unlike-say-zilliqa&quot;&gt;Coinweb shards state, unlike, say Zilliqa&lt;/h4&gt;
+
+&lt;p&gt;Coinweb transaction processing is fully parallel, and the trade-off we have is that synchronization happens between blocks and through
+cross-chain messages, only.&lt;/p&gt;
+
+&lt;p&gt;This is required to scale to the millions of transactions per second range. In a nutshell, there are no highly scalable systems that are &lt;strong&gt;not&lt;/strong&gt; designed like this. Coinweb transaction processing can be seen as similar to GPU processing with rendering passes exchanged for blocks, or as map-reduce processing pipelines where block transactions act like mappers and there is an implicit shuffle and aggregation step between each block.&lt;/p&gt;
+
+&lt;p&gt;We believe unrestricted synchronous processing on shared state is a disaster for scalability (as seen in Ethereum for example).&lt;/p&gt;
+
+&lt;h4 id=&quot;data-availability-is-considered-an-unsolved-problem-how-does-coinweb-address-it&quot;&gt;Data availability is considered an unsolved problem, how does Coinweb address it?&lt;/h4&gt;
+
+&lt;p&gt;In a sharded blockchain, data availability is considered a difficult problem to solve. For example, if one shard it controlled by malicious actors, then they could collude to withhold blocks, making it difficult/impossible for a fisherman, as in &lt;a href=&quot;https://polkadot.network/PolkaDotPaper.pdf&quot;&gt;polkadot&lt;/a&gt;, to challenge invalid state calculations.&lt;/p&gt;
+
+&lt;p&gt;A neighbor graph like the one used in Coinweb seemingly has the same problem, just with the requirement that malicious actors need to control &lt;strong&gt;two&lt;/strong&gt; shards (or chains in Coinweb). The malicious actors would control chains C and B, and attack chain A. They would withhold blocks from chain C, accept cross-chain transactions into chain B, while otherwise keeping it valid, and make chain A accept cross-chain transactions from chain B originating in a forged state from chain C.&lt;/p&gt;
+
+&lt;p&gt;Initially this is extremely hard to pull off in Coinweb for many reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Evaluation of state in Coinweb is done in a parallel fashion. This &lt;strong&gt;also&lt;/strong&gt; has the side-effect that it's possible to evaluate random subsets of the state of a block, so partial checks can be done cheaply.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Initial deployment of Coinweb will be done on L1 chains that are  established in the marketplace with high market cap. Inhibiting availability of blocks on these chains requires taking control over the chain and will also be devastating for the L1 token.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;it-seems-like-coinweb-is-quite-heavy-on-computation-is-this-an-efficient-chain&quot;&gt;It seems like Coinweb is quite heavy on computation. Is this an efficient chain?&lt;/h4&gt;
+
+&lt;p&gt;The efficiency of the whole system should be considered. In order to analyze this, we need to look at computations that are required for security, and pure computations.&lt;/p&gt;
+
+&lt;p&gt;Assume there are three different networks of the same size that are used to do a certain computation, networks A, B, and C. An external observer wants to know the result of the computation. For network A (BFT), ⅔ of the nodes must be honest for the observer to get the correct result, for network B, 51% of the nodes(PoW), and for network C(RDoC), a single honest node is required.&lt;/p&gt;
+
+&lt;p&gt;If a node is randomly chosen to be honest with a given probability, obviously network C requires the least duplicated work, followed by B, and then A. C thus requires the least aggregated computational resources.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately in the above case, only networks A and B can implement consensus and do the computation entirely on their own. Network C requires access to an auxiliary network of type A or B that provides trusted broadcasts of messages. This is how Coinweb operates. A small part of the computation, the non-deterministic part, is done by the L1 layer. The deterministic part is done by the L2 layer.\&lt;/p&gt;
+
+&lt;p&gt;Here it is important to note that all smart contracts are deterministic.&lt;/p&gt;
+
+&lt;h4 id=&quot;how-does-l2-differ-from-a-parachain&quot;&gt;How does L2 differ from a parachain?&lt;/h4&gt;
+
+&lt;p&gt;The parachain idea is that we parallelize by creating multiple chains because each chain requires sequential evaluation.&lt;/p&gt;
+
+&lt;p&gt;This is not necessary, and not a good way to scale up. If we analyze collation and execution separately, collation can scale with global network bandwidth and topology, given the security constraints of the consensus algorithm. Execution, on the other hand, in the map-reduce model is inherently parallel and scales with &lt;em&gt;local bandwidth and cpu.&lt;/em&gt; Running multiple chains to get equal efficiency as a map-reduce computational model is &lt;em&gt;extremely expensive&lt;/em&gt; and wasteful. This is especially true when only a few contracts have most of the transactions.&lt;/p&gt;
+
+&lt;p&gt;A parachain artificially adds the complexity of computation as an artificial barrier to the scalability of a chain. However, there is no reason why a high-throughput chain can be &lt;em&gt;executed&lt;/em&gt; by a parallel computer, or be &lt;em&gt;executed&lt;/em&gt; in a sharded manner.&lt;/p&gt;
+
+&lt;p&gt;We believe scaling is best handled at the architecture layer by cleanly separating collation and execution, and using parallel computation models.&lt;/p&gt;
+
+&lt;p&gt;In short:&lt;/p&gt;
+
+&lt;p&gt;Consensus is given by the L1 layer. L2 does not need its own consensus.&lt;/p&gt;
+
+&lt;p&gt;Parallelism in L2 is handled by the computation model and not tied to the L1 layer graph.&lt;/p&gt;
+
+&lt;p&gt;Communication in parallel execution is extremely cheap compared to intra-chain&lt;/p&gt;
+
+&lt;p&gt;Aggregated computation needed to drive the network is much lower as only one honest validator is needed.&lt;/p&gt;
+
+&lt;p&gt;Data is written into the L1 layer.&lt;/p&gt;
+
+&lt;h4 id=&quot;how-does-l2-differ-from-a-sidechain&quot;&gt;How does L2 differ from a sidechain?&lt;/h4&gt;
+
+&lt;p&gt;Consensus is given by the L1 layer. L2 does not do its own consensus.&lt;/p&gt;
+
+&lt;p&gt;L2 is designed to communicate with multiple external chains.&lt;/p&gt;
+
+&lt;p&gt;You only need access to the main chain, not both the main chain and the sidechain.&lt;/p&gt;
+
+&lt;p&gt;Aggregated computation needed to drive the network is much lower as only one honest validator is needed.&lt;/p&gt;
+
+&lt;p&gt;Data is written into the L1 layer.&lt;/p&gt;</content><author><name></name></author><summary type="html">This document refers to external research in order to position Coinweb sharding in relation to existing work.</summary></entry></feed>
