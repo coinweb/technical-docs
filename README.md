@@ -9,5 +9,4 @@ as they get open sourced.
 
 * Repo where [this](https://github.com/coinweb/technical-docs) is hosted.
 
-* Coinweb main [webpage](coinweb.io)
-
+* Coinweb main [webpage](https://coinweb.io)

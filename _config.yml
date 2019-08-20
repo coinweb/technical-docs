@@ -1,11 +1,15 @@
 
 title: Coinweb's Blog
 email: info@coinweb.io
-description: "Coinweb's docs - Blockchain, unchained" 
+description: "Coinweb's docs - Blockchain, unchained"
 baseurl: "/technical-docs" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: CoinwebOfficial
 github_username:  coinweb
+telegram_username: coinwebofficial
+linkedin_username: coinweb
+company: Company
+connect_with_us: Connect with us
 
 # Build settings
 markdown: kramdown
