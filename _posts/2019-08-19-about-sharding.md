@@ -101,6 +101,7 @@ In the above case only networks A and B can implement consensus and do the compu
 Here it is important to note that all smart contracts are deterministic.
 
 As mentioned above, Coinweb provides a separation between collation and execution, collation nodes are not required to perform the execution computation. With RDoC computation, the number of nodes necessary to provide execution computation is reduced to a few paid nodes. This leads to an order of magnitude less aggregated computation on Coinweb.
+
 The following is a look at what happens if you have a dBFT/PoS requiring ⅔ honest nodes, vs RDoC.  For a hypothetical "worst-case" where the probability of a participant/node being byzantine is 25% (lower % also for reference), we can look at the required number of nodes in a dBFT/PoS system, and an RDoC system for similar security.
 
 <table>
