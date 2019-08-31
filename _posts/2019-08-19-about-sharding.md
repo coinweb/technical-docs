@@ -96,9 +96,24 @@ Assume there are three different networks of the same size that are used to do a
 
 If a node is randomly chosen to be honest with a given probability, obviously network C requires the least duplicated work, followed by B, and then A. C thus requires the least aggregated computational resources.
 
-In the above case only networks A and B can implement consensus and do the computation entirely on their own. Network C requires access to an auxiliary network of type A or B that provides trusted broadcasts of messages. This is how Coinweb operates. A small part of the computation, the non-deterministic part, is done by the L1 layer. The deterministic part is done by the L2 layer.\
+In the above case only networks A and B can implement consensus and do the computation entirely on their own. Network C requires access to an auxiliary network of type A or B that provides trusted broadcasts of messages. This is how Coinweb operates. A small part of the computation, the non-deterministic part, is done by the L1 layer. The deterministic part is done by the L2 layer.
 
 Here it is important to note that all smart contracts are deterministic.
+
+As mentioned above, Coinweb provides a separation between collation and execution, collation nodes are not required to perform the execution computation. With RDoC computation, the number of nodes necessary to provide execution computation is reduced to a few paid nodes. This leads to an order of magnitude less aggregated computation on Coinweb.
+The following is a look at what happens if you have a dBFT/PoS requiring ⅔ honest nodes, vs RDoC.  For a hypothetical "worst-case" where the probability of a participant/node being byzantine is 25% (lower % also for reference), we can look at the required number of nodes in a dBFT/PoS system, and an RDoC system for similar security.
+
+![25% probability of a node being evil](https://github.com/coinweb/technical-docs/blob/master/assets/img/25percentevilnodes.svg)
+![10% probability of a node being evil](https://github.com/coinweb/technical-docs/blob/master/assets/img/10percentevilnodes.svg)
+![1% probability of a node being evil](https://github.com/coinweb/technical-docs/blob/master/assets/img/1percentevilnodes.svg)
+![0.1% probability of a node being evil](https://github.com/coinweb/technical-docs/blob/master/assets/img/0.1percentevilnodes.svg)
+
+In the above graphs d = number of dBFT nodes, and r is the number of RDoC nodes.
+I is the regularized incomplete beta function, and I1-p( n-k, 1+k) is the CDF of the binomial distribution (probability of k honest nodes in n trials with probability p of a node being evil) which we use in this simple model.
+
+This is a simplistic model, but assuming that the network needs to do some computation, it is clear that moving most of the computation into a separate layer that only requires a single honest computation saves massively on total aggregated compute resources, and thus enables scalability at the smart contract level.
+
+
 
 #### How does L2 differ from a parachain?
 
@@ -106,7 +121,7 @@ The parachain idea is that we parallelize by creating multiple chains because ea
 
 This is not necessary, and not a good way to scale up. If we analyze collation and execution separately, collation can scale with global network bandwidth and topology, given the security constraints of the consensus algorithm. Execution, on the other hand, in the map-reduce model is inherently parallel and scales with *local bandwidth and cpu.* Running multiple chains to get equal efficiency as a map-reduce computational model is *extremely expensive* and wasteful. This is especially true when only a few contracts have most of the transactions.
 
-A parachain artificially adds the complexity of computation as an artificial barrier to the scalability of a chain. However, there is no reason why a high-throughput chain can be *executed* by a parallel computer, or be *executed* in a sharded manner.
+A parachain artificially adds the complexity of computation as an artificial barrier to the scalability of a chain. However, there is no reason why a high-throughput chain can not be *executed* by a parallel computer, or be *executed* in a sharded manner.
 
 We believe scaling is best handled at the architecture layer by cleanly separating collation and execution, and using parallel computation models.
 
