@@ -96,7 +96,7 @@ Assume there are three different networks of the same size that are used to do a
 
 If a node is randomly chosen to be honest with a given probability, obviously network C requires the least duplicated work, followed by B, and then A. C thus requires the least aggregated computational resources.
 
-Unfortunately in the above case, only networks A and B can implement consensus and do the computation entirely on their own. Network C requires access to an auxiliary network of type A or B that provides trusted broadcasts of messages. This is how Coinweb operates. A small part of the computation, the non-deterministic part, is done by the L1 layer. The deterministic part is done by the L2 layer.\
+In the above case only networks A and B can implement consensus and do the computation entirely on their own. Network C requires access to an auxiliary network of type A or B that provides trusted broadcasts of messages. This is how Coinweb operates. A small part of the computation, the non-deterministic part, is done by the L1 layer. The deterministic part is done by the L2 layer.\
 
 Here it is important to note that all smart contracts are deterministic.
 
