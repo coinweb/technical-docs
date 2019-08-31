@@ -61,7 +61,36 @@ faq:
         Providing they are mature enough, Coinweb can work over most current blockchains as they are, without any modification or fork require to them. We plan
         to start working on top of the major chains, like BTC, ETH, BCH, LTC or DASH.
 
+  - question: What kind of Sybil attack protection does Coinweb use? Does it use PoW (Proof of Work), PoS (Proof of Stake)? Other?
 
+    answer: |
+        As Coinweb works as a deterministic execution layer built on top of existing blockchains, Coinweb's `full-nodes` are not vulnerable to
+        Sybil attacks; that's the reason Coinweb does not require a consensus level Sybil protection mechanism such PoW, PoS or a bft-like set
+        of validators. To secure `light-nodes` against a potential `dsBroker` (`full-nodes` connecting `light-nodes` to the network) Sybil attack:
+
+        * Light-nodes gather several l2-blockheaders signed by different dsBrokers.
+
+            * Because this information is signed, they don't need to directly access each `dsBroker`, but rather they
+              can access public directories (containing a big number of l2-blockheader) from central services or 
+              gossip protocols.
+
+            * Burned stakes acts as a mean of a voluntary “license” for  dsBrokers; if there are too many of them to query all, light-nodes 
+              will prefer those having burned the most.
+
+            * Proof of burn rather than proof of stake because this “license” does not work as a proof they are honest, 
+              but as a proof they are not part of a recent flooding attack. (You can think of it as how karma points work on
+              social networks, where in combination with other factors like account-age, helps preventing spam).
+
+            * Notice that this “license” helps light-clients to filter out potentially spammy dsBroker, but it is not the 
+              only mechanism they could use: They can keep a white-list of specially trusted dsBrokers (like well 
+              known merchants), black-list nodes known to have cheated, connect to a gossip network of 
+              proof-of-cheating-nodes … etc. The dsLogic system provides a native system for managing multiple 
+              independent authorities with their respective claims regarding dsBrokers that can be used for this.
+
+        * As long as there is at least one honest l2-blockheader among the gathered pool, the light-node would be 
+          able to use RDoC to identify it.
+
+        * Having the l2-blockheaders, the light-node can verify any query using merkle proof.
 
 ---
 
