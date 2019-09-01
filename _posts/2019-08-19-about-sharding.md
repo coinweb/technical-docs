@@ -104,16 +104,20 @@ As mentioned above, Coinweb provides a separation between collation and executio
 
 The following is a look at what happens if you have a dBFT/PoS requiring ⅔ honest nodes, vs RDoC.  For a hypothetical "worst-case" where the probability of a participant/node being byzantine is 25% (lower % also for reference), we can look at the required number of nodes in a dBFT/PoS system, and an RDoC system for similar security.
 
+![25 percentil](/technical-docs/assets/img/0.1percentevilnodes.svg)
+
+ 
 <table>
 	<tr>
 		<td>25% probability of a node being evil </td>
 		<td> 10% probability of a node being evil </td>
 	</tr>
 	<tr>
-		<td><img style=float: left src="https://github.com/coinweb/technical-docs/blob/master/assets/img/25percentevilnodes.svg" width="400" height="400" />
+		<td>
+			![25 percentil](https://github.com/coinweb/technical-docs/blob/master/assets/img/25percentevilnodes.svg)
 		</td>
 		<td>
-		<img style=float: right src="https://github.com/coinweb/technical-docs/blob/master/assets/img/10percentevilnodes.svg" width="400" height="400" />
+			![10 percentil](https://github.com/coinweb/technical-docs/blob/master/assets/img/10percentevilnodes.svg)
 		</td>
 	</tr>
 	<tr>
@@ -123,13 +127,15 @@ The following is a look at what happens if you have a dBFT/PoS requiring ⅔ hon
 </tr>
 <tr>
 	<td>
-		<img style=float: left src="https://github.com/coinweb/technical-docs/blob/master/assets/img/1percentevilnodes.svg" width="400" height="400">
+        ![1 percentil](https://github.com/coinweb/technical-docs/blob/master/assets/img/1percentevilnodes.svg)
 	</td>
 	<td> 
-		<img style=float:right src="https://github.com/coinweb/technical-docs/blob/master/assets/img/0.1percentevilnodes.svg" width="400" height="400"> 
+		![0.1 percentil](https://github.com/coinweb/technical-docs/blob/master/assets/img/0.1percentevilnodes.svg)
 	</td>
 </tr>
 </table>
+
+
 In the above graphs d = number of dBFT nodes, and r is the number of RDoC nodes.
 I is the regularized incomplete beta function, and I1-p( n-k, 1+k) is the CDF of the binomial distribution (probability of k honest nodes in n trials with probability p of a node being evil) which we use in this simple model.
 
