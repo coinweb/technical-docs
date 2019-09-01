@@ -104,12 +104,12 @@ As mentioned above, Coinweb provides a separation between collation and executio
 
 The following is a look at what happens if you have a dBFT/PoS requiring ⅔ honest nodes, vs RDoC.  For a hypothetical "worst-case" where the probability of a participant/node being byzantine is 25% (lower % also for reference), we can look at the required number of nodes in a dBFT/PoS system, and an RDoC system for similar security.
 
-|25% probability of a node being evil|10% probability of a node being evil|
-|------------------------------------|------------------------------------|
+|    25% probability of a node being evil   |    10% probability of a node being evil   |
+|-------------------------------------------|-------------------------------------------|
 |![](https://github.com/coinweb/technical-docs/blob/master/assets/img//25percentevilnodes.svg)|![](https://github.com/coinweb/technical-docs/blob/master/assets/img/10percentevilnodes.svg)|
 
-|1% probability of a node being evil|0.1% probability of a node being evil|
-|------------------------------------|------------------------------------|
+|     1% probability of a node being evil   |   0.1% probability of a node being evil   |
+|-------------------------------------------|-------------------------------------------|
 |![](https://github.com/coinweb/technical-docs/blob/master/assets/img/1percentevilnodes.svg)|![](https://github.com/coinweb/technical-docs/blob/master/assets/img/0.1percentevilnodes.svg)|
  
 
