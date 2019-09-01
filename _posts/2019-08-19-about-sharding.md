@@ -106,36 +106,12 @@ The following is a look at what happens if you have a dBFT/PoS requiring ⅔ hon
 
 |25% probability of a node being evil|10% probability of a node being evil|
 |------------------------------------|------------------------------------|
-|![25 percentil](/technical-docs/assets/img/25percentevilnodes.svg)|![10 percentil](/technical-docs/assets/img/10percentevilnodes.svg)|
+|![](https://github.com/coinweb/technical-docs/blob/master/assets/img//25percentevilnodes.svg)|![](https://github.com/coinweb/technical-docs/blob/master/assets/img/10percentevilnodes.svg)|
 
+|1% probability of a node being evil|0.1% probability of a node being evil|
+|------------------------------------|------------------------------------|
+|![](https://github.com/coinweb/technical-docs/blob/master/assets/img/1percentevilnodes.svg)|![](https://github.com/coinweb/technical-docs/blob/master/assets/img/0.1percentevilnodes.svg)|
  
-<table>
-	<tr>
-		<td>25% probability of a node being evil </td>
-		<td> 10% probability of a node being evil </td>
-	</tr>
-	<tr>
-		<td>
-			![25 percentil](https://github.com/coinweb/technical-docs/blob/master/assets/img/25percentevilnodes.svg)
-		</td>
-		<td>
-			![10 percentil](https://github.com/coinweb/technical-docs/blob/master/assets/img/10percentevilnodes.svg)
-		</td>
-	</tr>
-	<tr>
-	<td>1% probability of a node being evil 
-	</td>
-	<td> 0.1% probability of a node being evil </td>
-</tr>
-<tr>
-	<td>
-        ![1 percentil](https://github.com/coinweb/technical-docs/blob/master/assets/img/1percentevilnodes.svg)
-	</td>
-	<td> 
-		![0.1 percentil](https://github.com/coinweb/technical-docs/blob/master/assets/img/0.1percentevilnodes.svg)
-	</td>
-</tr>
-</table>
 
 
 In the above graphs d = number of dBFT nodes, and r is the number of RDoC nodes.
