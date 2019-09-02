@@ -109,6 +109,11 @@ faq:
     {% endfor %}
 </section>
 
+<br/>
+
+![]({{site.baseurl}}/assets/img/shards1.png)
+
+![]({{site.baseurl}}/assets/img/shards2.png)
 
 
 
