@@ -106,11 +106,11 @@ The following is a look at what happens if you have a dBFT/PoS requiring ⅔ hon
 
 |    25% probability of a node being evil   |    10% probability of a node being evil   |
 |-------------------------------------------|-------------------------------------------|
-| ![](https://github.com/coinweb/technical-docs/blob/master/assets/img/25percentevilnodes.svg) | ![](https://github.com/coinweb/technical-docs/blob/master/assets/img/10percentevilnodes.svg) |
+| ![](https://github.com/coinweb/technical-docs/blob/master/assets/img/25percentevilnodes.png) | ![](https://github.com/coinweb/technical-docs/blob/master/assets/img/10percentevilnodes.png) |
 
 |     1% probability of a node being evil   |   0.1% probability of a node being evil   |
 |-------------------------------------------|-------------------------------------------|
-| ![](https://github.com/coinweb/technical-docs/blob/master/assets/img/1percentevilnodes.svg) | ![](https://github.com/coinweb/technical-docs/blob/master/assets/img/0.1percentevilnodes.svg) |
+| ![](https://github.com/coinweb/technical-docs/blob/master/assets/img/1percentevilnodes.png) | ![](https://github.com/coinweb/technical-docs/blob/master/assets/img/0.1percentevilnodes.png) |
  
 
 
