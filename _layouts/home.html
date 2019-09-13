@@ -58,6 +58,22 @@ layout: default
     {%- endfor -%}
     </ul>
 
+    <h2 class="post-list-heading"> Financials: </h2>
+    <ul class="post-list">
+        {%- for file in site.data.financials_downloads_files -%}
+        <li>
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            <span class="post-meta">{{ file.date | date: date_format }}</span>
+            <h3>
+                <a class="post-link" href="{{ "assets/documents/" | append: file.name | relative_url }}">
+                    {{ file.description | escape }}
+                </a>
+            </h3>
+        </li>
+        {%- endfor -%}
+    </ul>
+
+
     <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
   {%- endif -%}
 
