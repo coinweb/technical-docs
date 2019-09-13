@@ -27,3 +27,7 @@ defaults:
       path: "assets/documents"
     values:
       documents: true
+  - scope:
+      path: "assets/documents/Financials"
+    values:
+      financials: true

@@ -60,13 +60,14 @@ layout: default
 
     <h2 class="post-list-heading"> Financials: </h2>
     <ul class="post-list">
-        {%- for file in site.data.financials_downloads_files -%}
+        {% assign financial_files = site.static_files | where: "financials", true %}
+        {%- for file in financial_files -%}
         <li>
             {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-            <span class="post-meta">{{ file.date | date: date_format }}</span>
+            <span class="post-meta">{{ file.modified_time | date: date_format }}</span>
             <h3>
-                <a class="post-link" href="{{ "assets/documents/" | append: file.name | relative_url }}">
-                    {{ file.description | escape }}
+                <a class="post-link" href="{{ "assets/documents/Financials/" | append: file.name | relative_url }}">
+                    {{ file.basename | escape }}
                 </a>
             </h3>
         </li>
